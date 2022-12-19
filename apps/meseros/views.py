@@ -1,4 +1,5 @@
 from django.db.models import Q, F
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
@@ -18,7 +19,7 @@ from django.core import serializers as ssr
 
 
 from rest_framework.response import Response
-from rest_framework.decorators import api_view,permission_classes
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
@@ -94,16 +95,23 @@ class MeseroDelete(DeleteView):
     template_name = 'mesero-confirm-delete.html'
 
 
+"""Serializers"""
+def ListMeseroSerializer(request):
+    lista = ssr.serialize('json', Mesero.objects.all(), fields=['nombre', 'pais', 'edad'])
+    return HttpResponse(lista, content_type="application/json")
+
+
+
 """Vistas creadas con Django Rest Framework"""
 
 
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def owner_api_view(request):
+def mesero_api_view(request):
 
     if request.method == 'GET':
-        queryset = Mesero.objects.all()  # Se obtiene todos los datos de la tabla owner
+        queryset = Mesero.objects.all()  # Se obtiene todos los datos de la tabla mesero
         serializers_class = MeseroSerializer(queryset, many=True)
 
         return Response(serializers_class.data, status=status.HTTP_200_OK)

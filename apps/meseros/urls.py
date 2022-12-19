@@ -11,7 +11,16 @@ urlpatterns = [
     path('meseros_create_vc/', views.MeserosCreate.as_view(), name='meseros_create_vc'),
     path('meseros_edit_vc/<int:pk>/', views.MeseroUpdate.as_view(), name='mesero_edit_vc'),
     path('meseros_delete_vc/<int:pk>/', views.MeseroDelete.as_view(), name='mesero_delete_vc'),
+
+# URLs serializers
+    path('mesero_list_serializer/', views.ListMeseroSerializer, name='mesero_list_srr'),
+
+    # URLs Django RESTFRAMEWORK
+    path('mesero_list_drf_def/', views.mesero_api_view, name='mesero_list_rf_def'),
+    path('mesero_detail_drf_def/<int:pk>', views.mesero_detail_view, name='mesero_detail_rf_def')
+
 ]
+
 
 
 
