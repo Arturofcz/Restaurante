@@ -4,5 +4,5 @@ from .models import Plato
 @admin.register(Plato)
 class PlatoAdmin(admin.ModelAdmin):
     list_display = ('nombre','precio','descripcion')
-    fields = ('nombre',)
-    list_filter = ('nombre',)
+    # ields = ('nombre',)
+    # list_filter = ('nombre',)
